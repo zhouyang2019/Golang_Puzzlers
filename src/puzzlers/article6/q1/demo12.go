@@ -6,10 +6,27 @@ import (
 
 var container = []string{"zero", "one", "two"}
 
+func testAccertType() {
+	// "_"(下划线)，可以简单理解为赋值但以后不再使用
+	v, ok := interface{}(container).([]string)
+	fmt.Printf("_: %q \n", v)
+	fmt.Printf("ok: %q \n", ok)
+	container := map[string]string{"k1": "v1", "k2": "v2"}
+	_, ok1 := interface{}(container).([]string)
+	_, ok2 := interface{}(container).(map[string]string)
+	fmt.Printf("container type is []string ? %q \n", ok1)
+	fmt.Printf("container type is map[string]string ? %q \n", ok2)
+	fmt.Printf("container[\"k1\"] is %q \n", container["k1"])
+}
+
 func main() {
+
+	testAccertType()
+
 	container := map[int]string{0: "zero", 1: "one", 2: "two"}
 
 	// 方式1。
+	// interface{}代表空接口，任何类型都是它的实现类型
 	_, ok1 := interface{}(container).([]string)
 	_, ok2 := interface{}(container).(map[int]string)
 	if !(ok1 || ok2) {

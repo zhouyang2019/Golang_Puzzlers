@@ -14,15 +14,18 @@ type AnimalCategory struct {
 	species string // 种。
 }
 
+// 方法必须隶属于某一个类型（某个自定义的数据类型，不能是任何接口类型），不能被当作值来看待
 func (ac AnimalCategory) String() string {
-	return fmt.Sprintf("%s%s%s%s%s%s%s",
+	return fmt.Sprintf("%s %s %s %s %s %s %s",
 		ac.kingdom, ac.phylum, ac.class, ac.order,
 		ac.family, ac.genus, ac.species)
 }
 
 // 示例2。
+// Go语言中没有继承，只有组合
 type Animal struct {
 	scientificName string // 学名。
+	// 匿名字段：一个字段的声明中只有字段的类型名而没有字段的名称
 	AnimalCategory        // 动物基本分类。
 }
 
@@ -40,6 +43,7 @@ type Cat struct {
 
 // 该方法会"屏蔽"掉嵌入字段中的同名方法。
 func (cat Cat) String() string {
+	// 将同名方法的结果逐层「包装」
 	return fmt.Sprintf("%s (category: %s, name: %q)",
 		cat.scientificName, cat.Animal.AnimalCategory, cat.name)
 }

@@ -17,6 +17,7 @@ func main() {
 
 	// 示例2。
 	intChan1 := make(chan int, 3)
+	// 会自动将元素类型匹配的双向通道转化为函数所需的单向通道
 	SendInt(intChan1)
 
 	// 示例4。
@@ -36,10 +37,12 @@ func SendInt(ch chan<- int) {
 
 // 示例3。
 type Notifier interface {
+	// 对Notifier的所有实现作出约束
 	SendInt(ch chan<- int)
 }
 
 // 示例4。
+// 对函数调用方的约束，函数调用方只能从通道中接收元素值
 func getIntChan() <-chan int {
 	num := 5
 	ch := make(chan int, num)
@@ -47,6 +50,7 @@ func getIntChan() <-chan int {
 		ch <- i
 	}
 	close(ch)
+	// 双向通道转化为单向通道
 	return ch
 }
 

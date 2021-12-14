@@ -29,9 +29,14 @@ func (dog Dog) Category() string {
 func main() {
 	// 示例1。
 	var dog1 *Dog
-	fmt.Println("The first dog is nil.")
+	if (dog1 == nil) {
+		fmt.Println("The first dog is nil.")
+	}
 	dog2 := dog1
-	fmt.Println("The second dog is nil.")
+	if (dog2 == nil) {
+		fmt.Println("The second dog is nil.")
+	}
+	// iface: 当给一个接口变量赋值时，该变量的动态类型与它的动态值一起被存储在一个专用的数据结构中
 	var pet Pet = dog2
 	if pet == nil {
 		fmt.Println("The pet is nil.")

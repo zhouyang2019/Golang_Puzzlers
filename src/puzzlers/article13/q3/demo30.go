@@ -16,7 +16,12 @@ func New(name, scientificName, category string) Cat {
 	}
 }
 
+// 「指针方法」的接收者是该方法所属的那个类型值的「指针值」的一个副本。在该方法内对该副本的修改会体现在原值上
 func (cat *Cat) SetName(name string) {
+	cat.name = name
+}
+// 「值方法」的接收者是该方法所属的那个类型值的一个副本。在该方法内对该副本的修改一般不会体现在原值上（除非这个类型本身是某个引用类型）
+func (cat Cat) SetName2(name string) {
 	cat.name = name
 }
 
@@ -43,8 +48,12 @@ func (cat Cat) String() string {
 
 func main() {
 	cat := New("little pig", "American Shorthair", "cat")
-	cat.SetName("monster") // (&cat).SetName("monster")
 	fmt.Printf("The cat: %s\n", cat)
+	cat.SetName("monster") // Go语言会自动转译为 (&cat).SetName("monster")
+	fmt.Printf("The cat: %s\n", cat)
+	cat.SetName2("monster2")
+	fmt.Printf("The cat: %s\n", cat)
+
 
 	cat.SetNameOfCopy("little pig")
 	fmt.Printf("The cat: %s\n", cat)
